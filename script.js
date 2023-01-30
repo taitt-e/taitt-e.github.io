@@ -4,6 +4,10 @@ const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
+//Added Score code - Taitt E
+var leftScore = 0;
+var rightScore = 0;
+//end added code
 var paddleSpeed = 6;
 var ballSpeed = 5;
 
@@ -55,6 +59,8 @@ function collides(obj1, obj2) {
 function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
+  document.getElementById("firstScore") = leftScore;
+  document.getElementById("secondScore") = leftScore;
 
   // move paddles by their velocity
   leftPaddle.y += leftPaddle.dy;
@@ -97,6 +103,15 @@ function loop() {
   // reset ball if it goes past paddle (but only if we haven't already done so)
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
     ball.resetting = true;
+
+    //Added Code - taitt-e
+    if(ball.x < 0){
+      ++leftScore;
+    }
+    if(ball.x > canvas.width){
+      ++rightScore;
+    }
+    //End Added Code.
 
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {
