@@ -4,11 +4,11 @@
 <head>
   <title>Basic Pong HTML Game</title>
   <meta charset="UTF-8">
+  <h1 align="left" id="firstScore"></h1>
+  <h1 align="right" id="secondScore"></h1>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-<h1 align="left" id="firstScore"></h1>
-<h1 align="right" id="secondScore"></h1>
-<canvas width="750" height="585" id="game" onload="requestAnimationFrame(loop)"></canvas>
+<body onload="requestAnimationFrame(loop)">
+<canvas width="750" height="585" id="game"></canvas>
 </body>
 </html>
