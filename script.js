@@ -168,5 +168,5 @@ document.addEventListener('keyup', function(e) {
     leftPaddle.dy = 0;
   }
 });
-  // start the game
-  requestAnimationFrame(loop);
+// start the game
+requestAnimationFrame(loop);
