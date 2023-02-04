@@ -55,6 +55,12 @@ function collides(obj1, obj2) {
          obj1.y + obj1.height > obj2.y;
 }
 
+//Added code - Taitt E
+function start(){
+  requestAnimationFrame(loop);
+}
+//end added code
+
 // game loop
 function loop() {
   requestAnimationFrame(loop);
