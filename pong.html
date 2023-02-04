@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
-<script type="text/javascript" src="script.js"></script>
 <head>
   <title>Basic Pong HTML Game</title>
   <meta charset="UTF-8">
-  <h1 align="left" id="firstScore"></h1>
-  <h1 align="right" id="secondScore"></h1>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<canvas width="750" height="585" id="game">
-  <input type="button" onclick="requestAnimationFrame(loop)" value="Start Game">
-</canvas>
-</body>
+  <h1 align="left" id="firstScore"></h1>
+  <h1 align="right" id="secondScore"></h1>
+  <canvas width="750" height="585" id="game"></canvas>
+  </body>
+  <script type="text/javascript" src="script.js" onload="requestAnimationFrame(loop)"></script>
 </html>
