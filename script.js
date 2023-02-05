@@ -59,6 +59,8 @@ function collides(obj1, obj2) {
 // game loop
 function loop() {
   requestAnimationFrame(loop);
+  document.getElementById("firstScore").innerHTML = leftScore;
+  document.getElementById("secondScore").innerHTML = leftScore;
   context.clearRect(0,0,canvas.width,canvas.height);
 
   // move paddles by their velocity
@@ -110,8 +112,8 @@ function loop() {
     if(ball.x > canvas.width){
       ++rightScore;
     }
-    document.getElementById("firstScore") = leftScore;
-    document.getElementById("secondScore") = leftScore;
+    document.getElementById("firstScore").innerHTML = leftScore;
+    document.getElementById("secondScore").innerHTML = leftScore;
     //End Added Code.
 
     // give some time for the player to recover before launching the ball again
