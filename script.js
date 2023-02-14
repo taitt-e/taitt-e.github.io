@@ -8,8 +8,8 @@ const maxPaddleY = canvas.height - grid - paddleHeight;
 var leftScore = 0;
 var rightScore = 0;
 //end added code
-var paddleSpeed = 6;
-var ballSpeed = 5;
+var paddleSpeed = 5.75;
+var ballSpeed = 5.5;
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -49,19 +49,26 @@ const ball = {
 // check for collision between two objects using axis-aligned bounding box (AABB)
 // @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
 function collides(obj1, obj2) {
-  return obj1.x < obj2.x + obj2.width &&
-         obj1.x + obj1.width > obj2.x &&
-         obj1.y < obj2.y + obj2.height &&
-         obj1.y + obj1.height > obj2.y;
+  return (
+    obj1.x < obj2.x + obj2.width &&
+    obj1.x + obj1.width > obj2.x &&
+    obj1.y < obj2.y + obj2.height &&
+    obj1.y + obj1.height > obj2.y
+  );
 }
 //end added code
 
 // game loop
 function loop() {
-  requestAnimationFrame(loop);
+  if (leftScore > 6 || rightScore > 6) {
+    document.querySelector("#alert").style.display="block"
+  }
+  else {
+    requestAnimationFrame(loop);
+    context.clearRect(0,0,canvas.width,canvas.height);
+  }
   document.getElementById("firstScore").innerHTML = leftScore;
   document.getElementById("secondScore").innerHTML = rightScore;
-  context.clearRect(0,0,canvas.width,canvas.height);
 
   // move paddles by their velocity
   leftPaddle.y += leftPaddle.dy;
@@ -95,10 +102,12 @@ function loop() {
   if (ball.y < grid) {
     ball.y = grid;
     ball.dy *= -1;
+    rightPaddle.dy = paddleSpeed;
   }
   else if (ball.y + grid > canvas.height - grid) {
     ball.y = canvas.height - grid * 2;
     ball.dy *= -1;
+    rightPaddle.dy = -paddleSpeed;
   }
 
   // reset ball if it goes past paddle (but only if we haven't already done so)
@@ -107,10 +116,10 @@ function loop() {
 
     //Added Code - taitt-e
     if(ball.x < 0){
-      ++leftScore;
+      ++rightScore;
     }
     if(ball.x > canvas.width){
-      ++rightScore;
+      ++leftScore;
     }
     document.getElementById("firstScore").innerHTML = leftScore;
     document.getElementById("secondScore").innerHTML = rightScore;
@@ -157,15 +166,6 @@ function loop() {
 // listen to keyboard events to move the paddles
 document.addEventListener('keydown', function(e) {
 
-  // up arrow key
-  if (e.which === 38) {
-    rightPaddle.dy = -paddleSpeed;
-  }
-  // down arrow key
-  else if (e.which === 40) {
-    rightPaddle.dy = paddleSpeed;
-  }
-
   // w key
   if (e.which === 87) {
     leftPaddle.dy = -paddleSpeed;
@@ -186,5 +186,16 @@ document.addEventListener('keyup', function(e) {
     leftPaddle.dy = 0;
   }
 });
+
+document.querySelector("#close-button").addEventListener("click", function(e) {
+    e.target.parentElement.style.display="none";
+});
+
+document.querySelector("#playAgain-button").addEventListener("click", function(e) {
+    leftScore = rightScore = 0;
+    e.target.parentElement.style.display="none";
+    requestAnimationFrame(loop);
+});
+
 // start the game
 requestAnimationFrame(loop);
